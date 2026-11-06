@@ -1,0 +1,38 @@
+---
+title: "Analysis"
+authors: "Alp Sahin and Amir Saand"
+output: github_document
+---
+
+## Load in data and libraries
+
+```{r}
+PimaIndians <- read.csv("Healthcare-Diabetes.csv")
+IraqDataset <- read.csv("Dataset of Diabetes .csv")
+
+library(ggplot2)
+library(dplyr)
+```
+
+## Filter IraqDataset for Women only
+
+```{r}
+IraqDataset <- filter(IraqDataset, Gender == "F")
+```
+
+## Setup of first analysis (HbA1c vs Glucose levels)
+
+## HbA1c levels determined by the Cleaveland Clinc
+
+## Glucose levels determined by the American Heart Association
+
+```{r}
+PimaIndians <- PimaIndians %>%
+  mutate(DiabetesStatus = case_when(
+    Glucose < 100  ~ "Normal",
+    Glucose < 126  ~ "Pre-Diabetic",
+    Glucose >= 126 ~ "Diabetic"))
+
+IraqDataset <- IraqDataset %>%
+  mutate(DiabetesStatus = (HbA1c*28.7) - 46.7)
+```
